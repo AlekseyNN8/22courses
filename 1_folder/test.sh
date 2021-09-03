@@ -1,2 +1,0 @@
-mkdir kol
-cd kol
