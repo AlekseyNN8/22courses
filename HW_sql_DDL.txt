@@ -1,0 +1,287 @@
+-- Host: 159.69.151.133
+--Port: 5056
+--DB: qa_ddldb_23_x
+--User: user_23_169
+--Pass: 123
+
+--SQL_DDL_Joins
+--
+--Таблица employees
+--
+--Создать таблицу employees
+--- id. serial,  primary key,
+--- employee_name. Varchar(50), not null
+
+
+create table employees (
+	id serial primary key,
+	employee_name Varchar(50) not null
+)
+
+--Наполнить таблицу employee 70 строками.
+
+insert into employees (id, employee_name) values 
+	(default, 'kkk'),
+ 	(default, 'Masha'),
+ 	(default, 'Kvava'),
+	(default, 'Dima'),
+	(default, 'Morgenstern'),
+	(default, 'Petushok'),
+	(default, 'Zolotoy'),
+	(default, 'Grebeshok'),
+	(default, 'Anfisa'),
+	(default, 'Chehov'),
+	(default, 'Petr'),
+	(default, 'Petr2'),
+	(default, 'Tatiana'),
+	(default, 'Tanya'),
+	(default, 'Serova'),
+	(default, 'Kozina'),
+	(default, 'Imya'),
+	(default, 'Familia'),
+	(default, 'Pacha'),
+	(default, 'Bardin'),
+	(default, 'Sasha'),
+	(default, 'Malasha'),
+	(default, 'Tony'),
+	(default, 'Stark'),
+	(default, 'Huly'),
+	(default, 'Huli'),
+	(default, 'Halk'),
+	(default, 'Pauk'),
+	(default, 'Spider'),
+	(default, 'Mraz'),
+	(default, 'Oleg'),
+	(default, 'Boyarskyi'),
+	(default, 'Galustyan'),
+	(default, 'Reva'),
+	(default, 'Milohin'),
+	(default, 'Yrod'),
+	(default, 'Maloy'),
+	(default, 'Potnyi'),
+	(default, 'Rjavoi'),
+	(default, 'Idiot'),
+	(default, 'Pushkin'),
+	(default, 'Boldino'),
+	(default, 'Ykogotakordlinnoeimyavoobshe'),
+	(default, 'Budempisatdlinnieimena'),
+	(default, 'Andrei'),
+	(default, 'Denis'),
+	(default, 'Aleksendr'),
+	(default, 'dno'),
+	(default, 'Smalenkoibykvoi'),
+	(default, 'Etoosibka'),
+	(default, 'HollyShit'),
+	(default, 'Kukoyaka'),
+	(default, 'Daria'),
+	(default, 'Shirly'),
+	(default, 'Mirly'),
+	(default, 'Epta'),
+	(default, 'Ktoto'),
+	(default, 'Trata'),
+	(default, 'Akuna'),
+	(default, 'Matata'),
+	(default, 'Pervyi'),
+	(default, 'Vtoroi'),
+	(default, 'Vasya3'),
+	(default, 'Privet'),
+	(default, 'Otvet'),
+	(default, 'Durakov'),
+	(default, 'Piltvoikrov'),
+	(default, 'Ooo'),
+	(default, 'Etoneimya'),
+	(default, 'Velikan');
+
+--Создать таблицу salary
+--- id. Serial  primary key,
+--- monthly_salary. Int, not null
+
+create table salary (
+	id serial primary key,
+	monthly_salary int not null
+	);
+
+--Наполнить таблицу salary 15 строками:
+	
+	insert into salary (id, monthly_salary) values 
+		(default, 1000),
+	 	(default, 1100),
+	 	(default, 1200),
+	 	(default, 1300),
+	 	(default, 1400),
+	 	(default, 1500),
+	 	(default, 1600),
+	 	(default, 1700),
+		(default, 1800),
+	 	(default, 1900),
+ 		(default, 2000),
+ 		(default, 2100),
+		(default, 2200),
+ 		(default, 2300),
+ 		(default, 2400),
+ 		(default, 2500);
+
+--Создать таблицу employee_salary
+--- id. Serial  primary key,
+--- employee_id. Int, not null, unique
+--- salary_id. Int, not null
+
+ 	
+create table employee_salary (
+	id serial  primary key,
+	employee_id Int not null unique,
+	salary_id Int not null
+);
+
+--Наполнить таблицу employee_salary 40 строками:
+--- в 10 строк из 40 вставить несуществующие employee_id	
+
+insert into employee_salary (id, employee_id, salary_id) values 
+	(default, 11, 1),
+	(default, 12, 11),
+	(default, 13, 10),
+	(default, 14, 9),
+	(default, 15, 8),
+	(default, 25, 7),
+	(default, 26, 6),
+	(default, 27, 5),
+	(default, 28, 4),
+	(default, 29, 3),
+	(default, 30, 2),
+	(default, 10, 12),
+	(default, 88, 13),
+	(default, 8, 14),
+	(default, 7, 15),
+	(default, 6, 16),
+	(default, 41, 25),
+	(default, 39, 24),
+	(default, 42, 23),
+	(default, 38, 22),
+	(default, 43, 21),
+	(default, 44, 20),
+	(default, 37, 19),
+	(default, 36, 18),
+	(default, 45, 17),
+	(default, 46, 26),
+	(default, 35, 27),
+	(default, 34, 28),
+	(default, 33, 29),
+	(default, 32, 30),
+	(default, 69, 31),
+	(default, 70, 32),
+	(default, 31, 33),
+	(default, 77, 34),
+	(default, 5, 35),
+	(default, 4, 36),
+	(default, 3, 37),
+	(default, 2, 38),
+	(default, 1, 39),
+	(default, 16, 40);
+
+	
+--Создать таблицу roles
+--- id. Serial  primary key,
+--- role_name. int, not null, unique
+
+
+
+ 
+	
+
+
+create table roles (
+	id serial  primary key,
+	role_name int not null unique
+);
+
+--Поменять тип столба role_name с int на varchar(30)
+
+ALTER TABLE roles 
+ALTER COLUMN role_name type varchar(30) ;
+
+--Наполнить таблицу roles 20 строками:
+
+insert into roles (id, role_name) values 
+	(default, 'Junior Python developer'),
+	(default, 'Middle Python developer'),
+	(default, 'Senior Python developer'),
+	(default, 'Junior Java developer'),
+	(default, 'Middle Java developer'),
+	(default, 'Senior Java developer'),
+	(default, 'Junior JavaScript developer'),
+	(default, 'Middle JavaScript developer'),
+	(default, 'Senior JavaScript developer'),
+	(default, 'Junior Manual QA engineer'),
+	(default, 'Middle Manual QA engineer'),
+	(default, 'Senior Manual QA engineer'),
+	(default, 'Project Manager'),
+	(default, 'Designer'),
+	(default, 'HR'),
+	(default, 'CEO'),
+	(default, 'Sales manager'),
+	(default, 'Junior Automation QA engineer'),
+	(default, 'Middle Automation QA engineer'),
+	(default, 'Senior Automation QA engineer');
+
+--Создать таблицу roles_employee
+--- id. Serial  primary key,
+--- employee_id. Int, not null, unique (внешний ключ для таблицы employees, поле id)
+--- role_id. Int, not null (внешний ключ для таблицы roles, поле id)
+
+
+create table roles_employee (
+	id serial  primary key,
+	employee_id Int not null unique, 
+	role_id Int not null,
+	foreign key (employee_id) 
+		references employees (id),
+	foreign key (role_id) 
+		references roles (id)
+);
+
+--Наполнить таблицу roles_employee 40 строками:
+
+insert into roles_employee (id, employee_id, role_id) values
+	(default, 1, 1),
+	(default, 2, 2),
+	(default, 3, 4),
+	(default, 4, 6),
+	(default, 5, 9),
+	(default, 6, 3),
+	(default, 7, 5),
+	(default, 8, 7),
+	(default, 9, 10),
+	(default, 10, 11),
+	(default, 11, 13),
+	(default, 12, 12),
+	(default, 13, 15),
+	(default, 14, 17),
+	(default, 15, 19),
+	(default, 16, 14),
+	(default, 17, 16),
+	(default, 18, 18),
+	(default, 19, 20),
+	(default, 20, 1),
+	(default, 21, 3),
+	(default, 22, 2),
+	(default, 23, 4),
+	(default, 24, 5),
+	(default, 25, 8),
+	(default, 26, 7),
+	(default, 27, 6),
+	(default, 28, 9),
+	(default, 29, 10),
+	(default, 30, 11),
+	(default, 31, 14),
+	(default, 32, 13),
+	(default, 33, 12),
+	(default, 34, 19),
+	(default, 35, 17),
+	(default, 36, 2),
+	(default, 37, 4),
+	(default, 38, 6),
+	(default, 39, 8),
+	(default, 40, 3);
+	
+
+

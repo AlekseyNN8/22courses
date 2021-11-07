@@ -1,0 +1,276 @@
+--Подключится к 
+--Host: 159.69.151.133
+--Port: 5056
+--DB: qa_db_2
+--User: user_22_x
+--Pass: 123
+
+
+-- 1. Вывести всех работников чьи зарплаты есть в базе, вместе с зарплатами. (25)
+
+select employees.employee_name, monthly_salary 
+from employees join employees_salary on employees.id = employees_salary.employee_id
+
+-- 2. Вывести всех работников у которых ЗП меньше 2000. (18)
+
+select employees.employee_name 
+from employees
+join employees_salary on employees.id = employees_salary.employee_id 
+where monthly_salary < 2000
+
+--3. Вывести все зарплатные позиции, но работник по ним не назначен. (ЗП есть, но не понятно кто её получает.)(11)
+
+select monthly_salary 
+from employees_salary 
+left join employees on employee_id = employees.id
+where employee_name is null
+
+
+-- 4. Вывести все зарплатные позиции меньше 2000 но работник по ним не назначен. (ЗП есть, но не понятно кто её получает.)(5)
+
+select monthly_salary 
+from employees_salary left join employees on employee_id = employees.id
+where employee_name is null and monthly_salary < 2000
+
+-- 5. Найти всех работников кому не начислена ЗП.(28)
+ 
+select employee_name 
+from employees full join employees_salary on employees.id = employees_salary.employee_id
+where monthly_salary is null
+
+-- 6. Вывести всех работников с названиями их должности. (41)
+
+select employee_name, role_name
+from employees e 
+join roles_employees re on e.id = re.employee_id 
+join roles r on re.role_id = r.id 
+
+
+--7. Вывести имена и должность только Java разработчиков.(7)
+
+select employee_name, roles.role_name 
+from employees, roles_employees, roles 
+where employees.id = roles_employees.employee_id and roles.id=roles_employees.role_id 
+and role_name like '%Java developer%'
+order by role_name
+
+-- 8. Вывести имена и должность только Python разработчиков. (3)
+
+select employee_name, roles.role_name 
+from employees, roles_employees, roles 
+where employees.id = roles_employees.employee_id and roles.id=roles_employees.role_id and role_name like '%Python developer%'
+order by role_name
+
+-- 9. Вывести имена и должность всех QA инженеров. (13)
+
+select employee_name, roles.role_name 
+from employees, roles_employees, roles 
+where employees.id = roles_employees.employee_id and roles.id=roles_employees.role_id 
+and role_name like '%QA engineer%'
+order by role_name
+
+-- 10. Вывести имена и должность ручных QA инженеров. (10)
+
+select employee_name, roles.role_name 
+from employees, roles_employees, roles 
+where employees.id = roles_employees.employee_id and roles.id=roles_employees.role_id 
+and role_name like '%Manual QA engineer%'
+order by role_name
+
+-- 11. Вывести имена и должность автоматизаторов QA (3)
+
+select employee_name, roles.role_name 
+from employees, roles_employees, roles 
+where employees.id = roles_employees.employee_id and roles.id=roles_employees.role_id 
+and role_name like '%Automation QA engineer%'
+order by role_name
+
+-- 12. Вывести имена и зарплаты Junior специалистов(5)
+
+select employee_name, monthly_salary, role_name 
+from employees join employees_salary on employees.id = employees_salary.id
+join roles on employees.id = roles.id where role_name like '%Junior%'
+
+-- 13. Вывести имена и зарплаты Middle специалистов(4)
+
+select employee_name, monthly_salary, role_name 
+from employees join employees_salary on employees.id = employees_salary.id
+join roles on employees.id = roles.id 
+where role_name like '%Middle%'
+
+-- 14. Вывести имена и зарплаты Senior специалистов(5)
+
+select employee_name, monthly_salary, role_name 
+from employees join employees_salary on employees.id = employees_salary.id
+join roles on employees.id = roles.id 
+where role_name like '%Senior%'
+
+--15. Вывести зарплаты Java разработчиков(3)
+
+select monthly_salary, role_name 
+from employees join employees_salary on employees.id = employees_salary.id
+join roles on employees.id = roles.id 
+where role_name like '%Java developer%'
+
+
+--16. Вывести зарплаты Python разработчиков(2)
+
+select monthly_salary, role_name 
+from employees join employees_salary on employees.id = employees_salary.id
+join roles on employees.id = roles.id 
+where role_name like '%Python developer%'
+
+-- 17. Вывести имена и зарплаты Junior Python разработчиков(1)
+ 
+select employee_name, monthly_salary
+from employees e 
+full join employees_salary on e.id = employees_salary.employee_id 
+full join roles_employees re on e.id = re.employee_id 
+full join roles r on r.id = re.role_id 
+where role_name ilike '%junior python%'
+
+
+-- 18. Вывести имена и зарплаты Middle JS разработчиков(1)
+
+select employee_name, monthly_salary
+from employees e 
+full join employees_salary on e.id = employees_salary.employee_id 
+full join roles_employees re on e.id = re.employee_id 
+full join roles r on r.id = re.role_id 
+where role_name like '%Middle JavaScript developer%' and monthly_salary is not null
+
+
+-- 19. Вывести имена и зарплаты Senior Java разработчиков (1)
+
+select employee_name, monthly_salary
+from employees e 
+full join employees_salary on e.id = employees_salary.employee_id 
+full join roles_employees re on e.id = re.employee_id 
+full join roles r on r.id = re.role_id 
+where role_name not like '%JavaScript%' and role_name like '%Senior Java%' and monthly_salary is not null
+
+
+--20. Вывести зарплаты Junior QA инженеров(6)
+
+select monthly_salary
+from employees e 
+join employees_salary on e.id = employees_salary.employee_id 
+join roles_employees re on e.id = re.employee_id 
+join roles r on r.id = re.role_id 
+where role_name like '%QA engineer%'
+
+
+-- 21. Вывести среднюю зарплату всех Junior специалистов(1360)
+
+select avg(monthly_salary) 
+from employees_salary
+join employees e on employee_id = e.id
+join roles_employees re on re.employee_id = e.id
+join roles r on r.id = re.role_id 
+where role_name like '%Junior%'
+
+22. Вывести сумму зарплат JS разработчиков
+
+select  sum(monthly_salary) 
+from employees_salary
+join employees e on employee_id = e.id
+join roles_employees re on re.employee_id = e.id
+join roles r on r.id = re.role_id
+where role_name like '%JavaScript%'
+
+
+--23. Вывести минимальную ЗП QA инженеров(900)
+
+select  min(monthly_salary) 
+from employees_salary
+join employees e on employee_id = e.id
+join roles_employees re on re.employee_id = e.id
+join roles r on r.id = re.role_id
+where role_name like '%QA engineer%'
+
+
+--24. Вывести максимальную ЗП QA инженеров
+
+select  max(monthly_salary) 
+from employees_salary
+join employees e on employee_id = e.id
+join roles_employees re on re.employee_id = e.id
+join roles r on r.id = re.role_id
+where role_name like '%QA engineer%'
+
+
+--25. Вывести количество QA инженеров(13)
+
+select count(employee_name) 
+from employees e 
+join roles_employees re on e.id = re.employee_id 
+join roles r on r.id = re.role_id 
+where role_name like '%QA engineer%'
+
+--26. Вывести количество Middle специалистов. (10)
+
+select count(employee_name) 
+from employees e 
+join roles_employees re on e.id = re.employee_id 
+join roles r on r.id = re.role_id  
+where role_name like '%Middle%'
+
+--27. Вывести количество разработчиков(18)
+
+select count(employee_name) 
+from employees e 
+full join roles_employees re on e.id = re.employee_id 
+full join roles r on r.id = re.role_id
+where role_name like '%developer%'
+
+--28. Вывести фонд (сумму) зарплаты разработчиков.(12700)
+
+select sum(monthly_salary) 
+from employees e 
+full join employees_salary es on e.id = es.employee_id 
+full join roles_employees re on e.id = re.employee_id 
+full join roles r on r.id = re.role_id
+where role_name like '%developer%'
+
+
+-- 29. Вывести имена, должности и ЗП всех специалистов по возрастанию(22)
+
+select employee_name, monthly_salary, role_name 
+from employees e 
+join employees_salary es on e.id = es.employee_id 
+join roles_employees re on e.id = re.employee_id 
+join roles r on r.id = re.role_id
+order by monthly_salary 
+
+
+--30. Вывести имена, должности и ЗП всех специалистов по возрастанию у специалистов у которых ЗП от 1700 до 2300 (8)
+
+select employee_name, monthly_salary, role_name 
+from employees e 
+join employees_salary es on e.id = es.employee_id 
+join roles_employees re on e.id = re.employee_id 
+join roles r on r.id = re.role_id
+where monthly_salary > 1700 and monthly_salary < 2300
+order by monthly_salary 
+
+
+--31. Вывести имена, должности и ЗП всех специалистов по возрастанию у специалистов у которых ЗП меньше 2300 (19)
+
+select employee_name, monthly_salary, role_name 
+from employees e 
+join employees_salary es on e.id = es.employee_id 
+join roles_employees re on e.id = re.employee_id 
+join roles r on r.id = re.role_id
+where monthly_salary < 2300
+order by monthly_salary 
+
+
+--32. Вывести имена, должности и ЗП всех специалистов по возрастанию у специалистов у которых ЗП равна 1100, 1500, 2000(4)
+
+select employee_name, monthly_salary, role_name 
+from employees e 
+join employees_salary es on e.id = es.employee_id 
+join roles_employees re on e.id = re.employee_id 
+join roles r on r.id = re.role_id
+where monthly_salary = 1100 or monthly_salary = 1500 or monthly_salary = 2000
+order by monthly_salary 
